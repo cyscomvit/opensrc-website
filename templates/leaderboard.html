@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CYSCOM VITC | Leaderboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="/static/home/images/cyscom-logo.png" rel="icon">
+    <meta name="author" content="CYSCOM VIT">
+    <meta name="description" content="The official leaderboard for CYSCOM VITC.">
+</head>
+
+<body>
+    <div class="sample-header">
+        <div class="sample-header-section">
+            <img src="/static/images/logo.png" style="height: 100px;">
+            <h1 style="font-weight: 700; font-size: 72px;">
+                CYSCOM VITC
+            </h1>
+            <h2>THE OFFICIAL LEADERBOARD OF CYSCOM VITC</h2>
+        </div>
+    </div>
+    <div class="sample-section-wrap">
+        <div class="sample-section">
+            <table class="board">
+                <!-- TABLE DROPDOWN START -->
+                <section>
+                    <tr class="heading">
+                        <th class="special-black-left"><img
+                                src="{{ url_for('static', filename='images/immortal-badge.png') }}"></th>
+                        <th colspan="3" class="middle">CYSCOM LEADERBOARD</th>
+                        <th class="special-black-right">
+                            <div class="box">
+                                <select name="act" id="act" style="width:auto">
+                                    {% for act in all_acts %}
+                                    <option value="act{{act.num}}" {% if all_acts[0]==act %}selected{% endif %}>
+                                        {{act.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </th>
+                    </tr>
+                </section>
+                <!-- TABLE DROPDOWN END -->
+
+                {% for act in all_acts%}
+                <!-- INDIVIDUAL ACT -->
+                <tbody id="act{{act.num}}" {% if act !=all_acts[0] %}style="display:none" {% endif %}>
+                    <!-- TABLE HEADER START -->
+                    <tr class="sub-heading">
+                        <td class="center-text">Rank</td>
+                        <td class="center-text" colspan="2">Rating</td>
+                        <td></td>
+                        <td class="center-text">Contributions</td>
+                    </tr>
+                    <!-- TABLE HEADER END -->
+
+                    <!-- CABINET MEMBERS, i.e ALL MEMBERS HAVING RATING > 5000 -->
+                    <section>
+                        {% for member in
+                        act.cabinet %}
+                        <tr class="data">
+                            <td class="rank">
+                                {{ '#' }}
+                            </td>
+                            <td class="rating-image">
+                                <img src="/static/images/radiant.png" style="height: 2em;">
+                            </td>
+                            <td class="rating">
+                                <span class="rating-value">&#8734;</span>
+                            </td>
+                            <td class="player">
+                                {{ member['Name'] }}
+                            </td>
+                            <td class="ongoing">
+                                &#8734;
+                                Contributions
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </section>
+                    <!-- END CABINET -->
+
+                    <!-- CABINET TO MEMEBRS DIVIDER -->
+                    <section>
+                        <tr class="divider">
+                            <td colspan="5" class="seperate">
+                                Members Leaderboard
+                            </td>
+                        </tr>
+                    </section>
+                    <!-- END DIVIDER -->
+
+                    <!-- START MEMBERS -->
+                    <section>
+                        {% for i,member in enumerate(act.members) %}
+                        <td class="rank">
+                            {{ i + 1 }}
+                        </td>
+                        <td class="rating-image">
+                            <img src="/static/images/{{ member['Image'] }}.png" style="height: 2em;">
+                        </td>
+                        <td class="rating">
+                            <span class="rating-value">
+                                {{ member['Rating'] }}
+                            </span>
+                        </td>
+                        <td class="player">
+                            {{ member['Name'] }}
+                        </td>
+                        <td class="ongoing">
+                            {{ member['Contributions'] }} Contributions
+                        </td>
+                        </tr>
+                        {%endfor%}
+                    </section>
+                    <!-- END MEMBERS -->
+
+                </tbody>
+                {%endfor%}
+            </table>
+        </div>
+    </div>
+
+    <script src='https://code.jquery.com/jquery-latest.min.js'></script>
+    <script src="/static/js/script.js"></script>
+
+</body>
+
+</html>

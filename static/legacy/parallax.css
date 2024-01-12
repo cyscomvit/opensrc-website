@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@700&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #130d0a;
+    font-family: "Playfair Display", serif;
+    color: #fff;
+    height: 5000px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards-container{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 3rem;
+}
+
+.card
+{
+    width: 15rem;
+    height: 12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:1rem;
+    margin-left:1rem;
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+    /* background-color: rgb(230, 230, 163); */
+    position: relative;
+    /* box-shadow: -1rem -1rem 2rem #333,1rem 1rem 2rem #333; */
+    /* padding: 0.5rem; */
+}
+.image
+{   
+    /* filter: grayscale(95%); */
+    width: 95%;
+    height: 95%;
+    transition: 0.5s;
+    border: none;
+    box-shadow: 0px 0px 10px 5px #fff;
+}
+.circle{
+    background-color: rgba(212, 102, 38, 0.87);
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    border-radius: 50%;
+    top: -5%;
+    right: -5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    z-index: 1000;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.line{
+    background-color: #000;
+    width: 70%;
+    height: 0.1rem;
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+.card:hover .circle{
+    opacity: 1;
+}
+.card.change .circle{
+    opacity: 1;
+}
+.card.change .line{
+    transform: rotate(720deg);
+}
+.content{
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 0%;
+    height: 0%;
+    border-radius: 25rem 0% 25rem 50rem;
+    background-color: rgba(212, 102, 38, 0.87);
+    transition: 0.5s;
+}
+.position{
+    font-family: 'Unica One';
+    color: #000;
+    margin-bottom: 1rem;
+    font-size: 0%;
+    transition: 0.5s;
+}
+.linkedin{
+    margin-right: 1rem;
+    font-size: 0%;
+    color: #000;
+    z-index: 100000;
+    transition: 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+}
+.github{
+    font-size: 0%;
+    text-decoration: none;
+    color: #000;
+    z-index: 100000;
+    transition: 0.5s;
+}
+.card.change .content{
+    width: 100%;
+    height: 100%;
+    border-radius: 0%;
+}
+.card.change .position{
+    font-size: 130%;
+    opacity: 1;
+    transition: 0.5s;
+}
+.card.change .linkedin{
+    font-size: 150%;
+}
+.card.change .github{
+    font-size: 150%;
+}
+.name{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    color: black;
+    height: 30%;
+    background-color: rgba(255,255,255,0.4);
+    transform: translateY(4rem);
+    opacity: 0;
+    transition: 0.5s;
+    z-index: 100;
+}
+.name p{ 
+    word-wrap: break-word;
+    font-family: 'Unica One';
+    font-size: 110%;
+    color: black;
+    font-weight: 500;
+}
+.card:hover .name{
+    opacity: 1;
+    transform: translateY(0rem);
+}
+.card.change .name{
+    opacity: 0;
+}
+.card:hover .image{
+    filter: blur(8px);
+}
+.card.change .image{
+    filter: blur(8px);
+}
+
+.ourmembers
+{
+    font-family: 'Merienda', cursive;
+    font-size: 3rem;
+    color: #bd6633;
+}
+
+.span{
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    transition: 0.5s;
+    z-index: 1000;
+}
+.span-1{
+    top: 5%;
+    left: 5%;
+    border-top: 2px #000 solid;
+    border-left: 2px #000 solid;
+}
+.span-2{
+    top: 5%;
+    right: 5%;
+    border-top: 2px #000 solid;
+    border-right: 2px #000 solid;
+}
+.span-3{
+    bottom: 5%;
+    left: 5%;
+    border-bottom: 2px #000 solid;
+    border-left: 2px #000 solid;
+}
+.span-4{
+    bottom: 5%;
+    right: 5%;
+    border-bottom: 2px #000 solid;
+    border-right: 2px #000 solid;
+}
+.card:hover .span-1{
+    top: 25%;
+    left: 12.5%;
+}
+.card:hover .span-2{
+    top: 25%;
+    right: 12.5%;
+}
+.card:hover .span-3{
+    bottom: 25%;
+    left: 12.5%;
+}
+.card:hover .span-4{
+    bottom: 25%;
+    right: 12.5%;
+}
+.card.change .span-1{
+    top: 25%;
+    left: 12.5%;
+}
+.card.change .span-2{
+    top: 25%;
+    right: 12.5%;
+}
+.card.change .span-3{
+    bottom: 25%;
+    left: 12.5%;
+}
+.card.change .span-4{
+    bottom: 25%;
+    right: 12.5%;
+}
+
+
+#hero {
+    height: 800px;
+    overflow: hidden;
+    position: relative;
+}
+#content {
+    background-color: #130d0a;
+}
+.layer {
+    background-position: bottom center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 800px;
+    position: fixed;
+    z-index: -1;
+}
+#hero-mobile {
+    display: none;
+    background: url("https://i.ibb.co/d7hw559/full-illustration.png") no-repeat center bottom / cover;
+    height: 320px;
+}
+.first-section {
+    padding: 50px 0 20px 0;
+}
+.text-header {
+    font-size: 50px;
+    text-align: center;
+}
+h1 {
+    line-height: 120%;
+    margin-bottom: 30px;
+}
+p {
+    color: #ede0d5;
+    font-size: 18px;
+    line-height: 150%;
+}
+.team
+{
+    font-size: 6rem;
+    margin-left: 10vw;
+    margin-top: 15vh;
+    font-family: 'Noto Sans',sans-serif;
+    z-index: 4;
+}
+
+  
+   .title {
+	text-align: center;
+	color: #FFF;
+	display: flex;
+    margin-top: 25vh;
+    /* border: 5px solid black; */
+	letter-spacing: 1px;
+}
+
+h1 {
+	background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+	background-size: cover;
+	color: transparent;
+    text-transform: capitalize;
+	-moz-background-clip: text;
+	-webkit-background-clip: text;
+	line-height: .75;
+	margin: 10px 0;
+}
+.borderku
+{
+    font-weight: 800;
+}
+
+
+.teams
+{
+    font-size: 5rem;
+    margin-left: 10vw;
+    margin-top: 15vh;
+    font-family: 'Noto Sans',sans-serif;
+    color: rgb(126, 69, 5);
+}
+#hero, .layer {
+    min-height: 800px;
+}
+.layer-bg {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/272781/ilu_bg.jpg");
+}
+.layer-1 {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/272781/ilu_03.png");
+    background-position: left bottom;
+}
+.layer-2 {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/272781/ilu_02.png");
+}
+.layer-3 {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/272781/ilu_man.png");
+    background-position: right bottom;
+}
+.layer-4 {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/272781/ilu_01.png");
+    z-index: 0;
+}
+.layer-overlay {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/272781/ilu_overlay.png");
+    
+}
+
+
+@media only screen and (max-width: 810px) {  
+     .borderku{
+         font-size: 7rem;
+     }
+     .teams{
+        font-size: 3rem;
+    }
+} 
