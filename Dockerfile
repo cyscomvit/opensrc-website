@@ -1,4 +1,4 @@
-FROM python:3.12.1-slim
+FROM python:3.12.1-slim AS requirements-image
 
 ENV PYTHONUNBUFFERED=1
 
@@ -12,11 +12,13 @@ COPY pyproject.toml poetry.lock ./
 
 RUN ["poetry","export","--format","requirements.txt","--output","requirements.txt"]
 
-FROM python:3.11.7-slim AS runtime-image
+FROM python:3.21.1-slim AS runtime-image
 
 LABEL description="CYSCOM VIT's leaderboard"
 
-COPY --from=base-image /export/requirements.txt requirements.txt
+ENV PYTHONUNBUFFERED=1
+
+COPY --from=requirements-image /export/requirements.txt requirements.txt
 
 RUN ["useradd","--create-home","cyscom-docker"]
 
