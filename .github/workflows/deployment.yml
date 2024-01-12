@@ -12,6 +12,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Calculate short hash
+        run: |
+          shortHash=$(git rev-parse --short ${{ github.sha }})
+          echo "COMMIT_SHORT_SHA=$shortHash" >> $GITHUB_ENV
       - name: SSH setup and run commands
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -20,19 +24,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            whoami
-            echo ${{ github.event.repository.name  }}
             cd ./deploy/${{ github.event.repository.name }}
             git pull
-            docker rm --force ${{ github.event.repository.name  }}-deploy
-            cd ../
-            if test -f docker-compose.yml; then
-              docker compose build --quiet
-              docker compose up --detach
-              echo "Built and deployed container"
-            else
-              echo "Docker compose file not found"
-              docker build -t cyscomvit/${{ github.event.repository.name  }}:latest --quiet .
-              docker run --detach --name ${{ github.event.repository.name  }}-deploy cyscomvit/${{ github.event.repository.name  }}:latest
-            fi
+            docker rm --force ${{ github.event.repository.name  }}-deploy || true
+            docker build -t ${{ github.event.repository.owner.name }}/${{ github.event.repository.name  }}:${{ env.COMMIT_SHORT_SHA }} --quiet .
+            docker run --detach --name ${{ github.event.repository.name  }}-deploy ${{ github.event.repository.owner.name }}/${{ github.event.repository.name  }}:${{ env.COMMIT_SHORT_SHA }}
             docker container prune --force && docker image prune --all --force

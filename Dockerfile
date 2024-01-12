@@ -1,14 +1,28 @@
 FROM python:3.12.1-slim
 
-LABEL description="CYSCOM VIT's leaderboard"
-
 ENV PYTHONUNBUFFERED=1
 
-COPY requirements.txt requirements.txt
+RUN ["pip","install","poetry>=1.7,<1.8","--upgrade"]
 
-RUN ["pip","install","-r","requirements.txt"]
+RUN ["poetry","self","add","poetry-plugin-export"]
 
-RUN useradd --create-home cyscom-docker
+WORKDIR /export
+
+COPY pyproject.toml poetry.lock ./
+
+RUN ["poetry","export","--format","requirements.txt","--output","requirements.txt"]
+
+FROM python:3.11.7-slim AS runtime-image
+
+LABEL description="CYSCOM VIT's leaderboard"
+
+COPY --from=base-image /export/requirements.txt requirements.txt
+
+RUN ["useradd","--create-home","cyscom-docker"]
+
+USER cyscom-docker
+
+RUN ["pip","install","--requirement","requirements.txt"]
 
 WORKDIR /home/cyscom-docker/opensrc-website
 
