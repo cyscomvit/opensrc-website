@@ -12,7 +12,7 @@ COPY pyproject.toml poetry.lock ./
 
 RUN ["poetry","export","--format","requirements.txt","--output","requirements.txt"]
 
-FROM python:3.21.1-slim AS runtime-image
+FROM python:3.12.1-slim AS runtime-image
 
 LABEL description="CYSCOM VIT's leaderboard"
 
