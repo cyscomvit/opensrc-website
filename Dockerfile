@@ -8,7 +8,9 @@ COPY requirements.txt requirements.txt
 
 RUN ["pip","install","-r","requirements.txt"]
 
-WORKDIR /opensrc-website
+RUN useradd --create-home cyscom-docker
+
+WORKDIR /home/cyscom-docker/opensrc-website
 
 COPY . .
 
