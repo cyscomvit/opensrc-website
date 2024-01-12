@@ -2,7 +2,7 @@ FROM python:3.12.1-slim AS requirements-image
 
 ENV PYTHONUNBUFFERED=1
 
-RUN ["pip","install","poetry>=1.7,<1.8","--upgrade"]
+RUN ["pip","install","poetry>=1.7,<1.8"]
 
 RUN ["poetry","self","add","poetry-plugin-export"]
 
@@ -19,6 +19,8 @@ LABEL description="CYSCOM VIT's leaderboard"
 ENV PYTHONUNBUFFERED=1
 
 COPY --from=requirements-image /export/requirements.txt requirements.txt
+
+RUN ["pip","install","gunicorn"]
 
 RUN ["useradd","--create-home","cyscom-docker"]
 
