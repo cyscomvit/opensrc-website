@@ -47,7 +47,6 @@ initialize_app(
 all_leaderboards_ref = db.reference("vitcc").child("owasp")
 
 
-@lru_cache(maxsize=None)
 def fetch_data(act: int | str) -> list[dict]:
     """Return a list of all members in the act. Sorted by points"""
     data_of_act: dict = all_leaderboards_ref.child(f"leaderboard-act{act}").get()
