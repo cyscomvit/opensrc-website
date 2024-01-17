@@ -59,10 +59,17 @@ class Act:
     def __init__(self, num: int, name: str):
         self.num: int = num
         self.name: str = name
-        self.data: list = fetch_data(num)
+        self.data: list
+
+        # Fetch data from leaderboard
+        self.refresh_leaderboard_data()
+
         self.cabinet = list(filter(lambda member: member["Rating"] >= 5000, self.data))
         self.members = list(filter(lambda member: member["Rating"] < 5000, self.data))
         self.rank_members()
+
+    def refresh_leaderboard_data(self):
+        self.data = fetch_data(self.num)
 
     def rank_members(self):
         for i, member in enumerate(self.members):
@@ -102,6 +109,8 @@ def index():
 
 @app.route("/leaderboard", methods=["GET"])
 def leaderboard():
+    for act in all_acts:
+        act.refresh_leaderboard_data()
     return render_template("leaderboard.html", all_acts=all_acts, enumerate=enumerate)
 
 
