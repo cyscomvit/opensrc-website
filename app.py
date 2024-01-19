@@ -64,8 +64,21 @@ class Act:
         # Fetch data from leaderboard
         self.refresh_leaderboard_data()
 
-        self.cabinet = list(filter(lambda member: member["Rating"] >= 5000, self.data))
-        self.members = list(filter(lambda member: member["Rating"] < 5000, self.data))
+        self.cabinet = list(
+            filter(
+                lambda member: (member["Rating"] >= 5000)
+                and member["Name"].casefold() != "testing",
+                self.data,
+            )
+        )
+        self.members = list(
+            filter(
+                lambda member: (
+                    member["Rating"] < 5000 and member["Name"].casefold() != "testing"
+                ),
+                self.data,
+            )
+        )
         self.rank_members()
 
     def refresh_leaderboard_data(self):
