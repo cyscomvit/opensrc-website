@@ -82,6 +82,7 @@ class Act:
         self.rank_members()
 
     def refresh_leaderboard_data(self):
+        print("fetched latest points")
         self.data = fetch_data(self.num)
 
     def rank_members(self):
@@ -109,11 +110,6 @@ CURRENT_ACT_YEAR: int = int(getenv("CURRENT_ACT_YEAR"))
 END_ACT: int = int(getenv("END_ACT"))
 START_ACT: int = int(getenv("START_ACT"))
 
-all_acts = [
-    Act(i, f"ACT {i} - {CURRENT_ACT_YEAR - END_ACT + i}")
-    for i in range(END_ACT, START_ACT, -1)
-]
-
 
 @app.route("/", methods=["GET"])
 def index():
@@ -122,8 +118,10 @@ def index():
 
 @app.route("/leaderboard", methods=["GET"])
 def leaderboard():
-    for act in all_acts:
-        act.refresh_leaderboard_data()
+    all_acts = [
+        Act(i, f"ACT {i} - {CURRENT_ACT_YEAR - END_ACT + i}")
+        for i in range(END_ACT, START_ACT, -1)
+    ]
     return render_template("leaderboard.html", all_acts=all_acts, enumerate=enumerate)
 
 
