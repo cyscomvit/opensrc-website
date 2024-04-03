@@ -124,31 +124,5 @@ def leaderboard():
     ]
     return render_template("leaderboard.html", all_acts=all_acts, enumerate=enumerate)
 
-
-@app.route("/hall_of_cyscom")
-def hall_of_cyscom():
-    # static/data/test_data.json
-    filename = join(app.static_folder, "data", "test.json")
-    # print(filename)
-
-    with open(filename) as test_file:
-        data = json.load(test_file)
-
-    return render_template("hall_of_cyscom.html", data=data)
-
-
-jsonfile = open("hoomans.json", "r")
-jsondata = jsonfile.read()
-
-# Parse JSON
-obj = json.loads(jsondata)
-members = obj["members"]
-
-
-@app.route("/legacy")
-def home():
-    return render_template("legacy.html", context=members)
-
-
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
