@@ -23,4 +23,4 @@ jobs:
             git pull
             docker rm -f ${{ github.event.repository.name  }} || true
             docker build -t ${{ github.repository }} .
-            docker run -d -p 5000:5000 --name ${{ github.event.repository.name  }}  ${{ github.repository }}
+            docker run -d -p 5000:5000 --name ${{ github.event.repository.name  }}  --restart always ${{ github.repository }}
